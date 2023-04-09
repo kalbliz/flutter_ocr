@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mobile_vision/flutter_mobile_vision.dart';
+import 'package:flutter_mobile_vision_2/flutter_mobile_vision_2.dart';
 
 void main() {
   runApp(MyApp());
@@ -51,7 +51,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  String _counter = '0';
 
   bool isInitilized = false;
   @override
@@ -63,17 +63,21 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _startScan() async {
-    List<OcrText> list = List();
+    List<OcrText> list = [];
 
     try {
       list = await FlutterMobileVision.read(
         waitTap: true,
         fps: 5,
-        multiple: true,
+        multiple: false,
       );
 
       for (OcrText text in list) {
-        print('valueis ${text.value}');
+        print('value is ${text.value}');
+        setState(() {
+          _counter = '${text.value}';
+        });
+
       }
     } catch (e) {}
   }
